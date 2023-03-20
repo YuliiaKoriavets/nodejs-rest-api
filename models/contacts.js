@@ -1,5 +1,6 @@
 const path = require("path")
 const fs = require("fs/promises")
+const ObjectId = require('bson-objectid');
 
 const contactsPath = path.join(__dirname, "contacts.json");
 
@@ -15,16 +16,20 @@ async function listContacts() {
 
 async function getContactById(contactId) {
     const contacts = await listContacts()
-    const contact = contacts.find(({id}) => String(contactId) === id)
-    return contact || null;
+    const contact = contacts.find(({id}) => id === contactId)
+    if(!contact){
+      return null
+    }
+    return contact;
 }
   
- async function addContact({name, email, phone}) {
+ async function addContact(name, email, phone) {
     const contacts = await listContacts()
+    const id = String(ObjectId())
     const newContact = {
-        id: String(contacts.length + 1),
+        id,
         name,
-        email, 
+        email,
         phone,
     }
     contacts.push(newContact)
@@ -34,26 +39,27 @@ async function getContactById(contactId) {
 
   async function removeContact(contactId) {
     const contacts = await listContacts()
-    const contactIndex = contacts.findIndex(({id}) =>  String(contactId) === id)
+    const contactIndex = contacts.findIndex(({id}) => id === contactId)
     if (contactIndex === -1) {
-        console.log('Contact is not found');
-        return;
+        return null;
     }
-    const newContacts = contacts.splice(contactIndex, 1)
+    const newContacts = contacts.filter(({id}) => id !== contactId)
     await updateFile(newContacts)
-    return newContacts
   }
 
   async function updateContact(contactId, body){
     const contacts = await listContacts()
-    const contactIndex = contacts.findIndex(({id}) =>  String(contactId) === id)
+    const contactIndex = contacts.findIndex(({id}) => id === contactId)
     if (contactIndex === -1) {
         console.log('Contact is not found');
         return;
     }
-    contacts[contactIndex] = { id, ...body };
+    if (!body) {
+      return null;
+    }
+    contacts[contactIndex] = { ...contacts[contactIndex], ...body };
     await updateFile(contacts)
-    return contacts[contactIndex]
+    return contacts[contactIndex];
   }
 
   module.exports={
