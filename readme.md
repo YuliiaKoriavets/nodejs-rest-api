@@ -1,31 +1,44 @@
-## GoIT Node.js Course Template Homework
 
-Виконайте форк цього репозиторію для виконання домашніх завдань (2-6)
-Форк створить репозиторій на вашому http://github.com
+# Node.js REST API
 
-Додайте ментора до колаборації
 
-Для кожної домашньої роботи створюйте свою гілку.
+This is a simple RESTful API project built with Node.js, Express.js, and MongoDB.
 
-- hw02
-- hw03
-- hw04
-- hw05
-- hw06
+## Getting Started 
 
-Кожна нова гілка для др повинна робитися з master
+To get started with the project, follow these steps:
 
-Після того, як ви закінчили виконувати домашнє завдання у своїй гілці, необхідно зробити пулл-реквест (PR). Потім додати ментора для рев'ю коду. Тільки після того, як ментор заапрувить PR, ви можете виконати мердж гілки з домашнім завданням у майстер.
+1. Clone the repository: `git clone https://github.com/YuliiaKoriavets/nodejs-rest-api.git`.
 
-Уважно читайте коментарі ментора. Виправте зауваження та зробіть коміт у гілці з домашнім завданням. Зміни підтягнуться у PR автоматично після того, як ви відправите коміт з виправленнями на github
-Після виправлення знову додайте ментора на рев'ю коду.
+2. Install the dependencies: `npm install`.
 
-- При здачі домашньої роботи є посилання на PR
-- JS-код чистий та зрозумілий, для форматування використовується Prettier
+3. Create .env file and fill in the necessary environment variables.
 
-### Команди:
+4. Start the development server: `npm run start:dev`.
 
-- `npm start` &mdash; старт сервера в режимі production
-- `npm run start:dev` &mdash; старт сервера в режимі розробки (development)
-- `npm run lint` &mdash; запустити виконання перевірки коду з eslint, необхідно виконувати перед кожним PR та виправляти всі помилки лінтера
-- `npm lint:fix` &mdash; та ж перевірка лінтера, але з автоматичними виправленнями простих помилок
+5. The API should now be accessible at http://localhost:3000.
+
+## Environment Variables
+
+To run this project, you will need to add the following environment variables to your .env file:
+
+`NODE_ENV` = dev;
+
+`PORT` = 3000;
+
+`DB_URI` = mongodb+srv://yuliya:rJKRsd2pSz7k4Ir6@cluster0.dwb0krt.mongodb.net/db-contacts?retryWrites=true&w=majority
+
+## API Endpoints
+
+The following endpoints are available:
+
+| Method | Endpoint     | Description                |
+| :-------- | :------- | :------------------------- |
+| GET | / api / contacts | Get all contacts |
+| GET | / api / contacts / :contactId | Get a single contact by id |
+| POST | / api / contacts | Create a new contact |
+| PUT | / api / contacts / :contactId | Update a contact by id |
+| PATCH | / api / contacts / :contactId / favorite | Update status of a contact by id |
+| DELETE | / api / contacts / :contactId | Delete a contact by id |
+
+
