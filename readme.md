@@ -8,7 +8,7 @@ This is a simple RESTful API project built with Node.js, Express.js, and MongoDB
 
 To get started with the project, follow these steps:
 
-1. Clone the repository: `git clone https://github.com/YuliiaKoriavets/nodejs-rest-api.git`.
+1. Clone the repository: `git clone https://github.com/YuliiaKoriavets/nodejs-rest-api`.
 
 2. Install the dependencies: `npm install`.
 
