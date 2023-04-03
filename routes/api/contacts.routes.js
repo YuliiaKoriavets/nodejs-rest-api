@@ -1,12 +1,13 @@
 const express = require('express');
 const service = require('../../services/contacts.service');
 const { contactSchema, contactUpdateSchema } = require('../../schemas/contact.schema');
-
+const {authMiddleware } = require('../../middlewares/index')
 const router = express.Router();
 
-router.get('/', async (req, res, next) => {
+router.get('/', authMiddleware, async (req, res, next) => {
   try {
-    const contacts = await service.getAllContacts();
+    const {_id} = req.user
+    const contacts = await service.getAllContacts(_id);
     res.status(200).json(contacts);
   } catch (error) {
     next(error);
@@ -26,14 +27,15 @@ router.get('/:contactId', async (req, res, next) => {
   }
 });
 
-router.post('/', async (req, res, next) => {
+router.post('/', authMiddleware, async (req, res, next) => {
   try {
     const { error } = contactSchema.validate(req.body);
     if (error) {
       return res.status(400).json({ message: 'missing required name field' });
     }
     const { name, email, phone, favorite } = req.body;
-    const newContact = await service.createContact({ name, email, phone, favorite });
+    const {_id} = req.user
+    const newContact = await service.createContact({ name, email, phone, favorite }, _id);
     return res.status(201).json(newContact);
   } catch (error) {
     next(error);
