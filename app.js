@@ -5,7 +5,6 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const { contactsRouter, usersRouter } = require('./routes/api/index');
-const { required } = require('joi');
 
 const DB_URI = process.env.DB_URI;
 const NODE_ENV = process.env.NODE_ENV || 'dev';
@@ -18,6 +17,7 @@ const formatsLogger = NODE_ENV === 'dev' ? 'dev' : 'short';
 app.use(logger(formatsLogger));
 app.use(cors());
 app.use(express.json());
+app.use(express.static("public"))
 
 app.use(bodyParser.json());
 

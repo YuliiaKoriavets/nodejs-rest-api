@@ -8,8 +8,8 @@ const findById = async _id => {
      await User.findById(_id);
 }
 
-const registration = async (email, password) => {
-  const user = new User({ email, password });
+const registration = async (email, password, avatarURL) => {
+  const user = new User({ email, password, avatarURL });
   user.setPassword(password);
   await user.save();
 };
